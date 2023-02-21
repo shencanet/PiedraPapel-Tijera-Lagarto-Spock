@@ -26,9 +26,28 @@ return 2;
 
 export default function Game() {
     const[userChoice, setUserChoice] = useState(null);
+    const  [userMessage, setUserMessage] = useState(null);
     const[computerChoice, setComputerChoice] = useState(null);
+    const[ComputerMessage, setComputerMessage]= useState(null);
     const [result, setResult] = useState(null);
     const[disabled, setDisabled]= useState(false);
+
+useEffect(() => {
+  if(userChoice != null){
+    setUserMessage(`Has elegido ${options[userChoice]?.emoji} - ${options[userChoice]?.name}`);
+  }
+
+}, [userChoice]);
+
+useEffect(() => {
+  if(computerChoice != null){
+    setComputerMessage(`El ordenador a elegido ${options[userChoice]?.emoji} - ${options[userChoice]?.name}`);
+  }
+
+}, [computerChoice])
+
+
+
     const handlePlay = (Choice) => {
       setUserChoice(Choice);
       setDisabled(true)
@@ -61,6 +80,14 @@ export default function Game() {
               >{option.emoji}</button>
 
             )
+          )}
+
+          {userChoice != null && (
+            <p className='text-xl mt-4 '>{userMessage}</p>
+          )}
+
+            {computerChoice != null && (
+            <p className='text-xl mt-4 '>{ComputerMessage}</p>
           )}
 
         </div>
